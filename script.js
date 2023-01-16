@@ -117,6 +117,7 @@ function rotacionar(card) {
     if (finaldejogo.length == q) {
         alert(`Você ganhou em ${jogadas} jogadas!`);
     }
+}
 
 
 
