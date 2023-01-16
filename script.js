@@ -53,6 +53,8 @@ let carta2;
 let imagem2;
 let possui1;
 let possui2;
+let jogadas = 0;
+let timeout = true;
 
 function rotacionar(card) {
     const cartasViradas = [];
@@ -82,12 +84,39 @@ function rotacionar(card) {
 
         const possui1 = carta1.classList.contains('virado');
         const possui2 = carta2.classList.contains('virado');
-        if ()
+        if (cartasViradas.length == 2 && imagem1 != imagem2) {
+            cartasViradas.length = 0;
+            carta1.classList.remove('virado');
+            carta2.classList.remove('virado');
+            timeout = false;
+            setTimeout(() => {
+                carta1.querySelector(".back-face").classList.toggle("girar-back-face");
+                carta1.querySelector(".front-face").classList.toggle("girar-front-face");
+                carta2.querySelector(".back-face").classList.toggle("girar-back-face");
+                carta2.querySelector(".front-face").classList.toggle("girar-front-face");
+                timeout = true;
+            }, 1000);
 
+        }
 
+        else if (cartasViradas.length == 2 && imagem1 == imagem2) {
+            cartasViradas.length = 0;
+            carta1.classList.remove('virado');
+            carta2.classList.remove('virado');
+            carta1.classList.add('correto');
+            carta2.classList.add('correto');
 
+        }
+
+        (document.querySelectorAll('.correto'));
+        console.log(timeout);
     }
-}
+    jogadas++;
+
+    const finaldejogo = document.querySelectorAll('.correto');
+    if (finaldejogo.length == q) {
+        alert(`Você ganhou em ${jogadas} jogadas!`);
+    }
 
 
 
