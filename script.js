@@ -20,16 +20,16 @@ Cartas.push('tripletsparrot.gif');
 Cartas.push('unicornparrot.gif');
 Cartas.push('unicornparrot.gif');
 
-function comparador() {
-    return Math.random
-}
 
+function comparador() {
+    return Math.random - 0.5;
+}
 let i = 0;
-const NumerodeCartas = []
+const NumerodeCartas = [];
 while (i < q) {
     NumerodeCartas[i] = Cartas[i];
     NumerodeCartas.sort(comparador);
-    i = i + 1;
+    i++;
 }
 
 let j = 0;
@@ -88,10 +88,10 @@ function rotacionar(card) {
             carta2.classList.remove('virado');
             timeout = false;
             setTimeout(() => {
-                carta1.querySelector(".back-face").classList.toggle("girar-back-face");
-                carta1.querySelector(".front-face").classList.toggle("girar-front-face");
-                carta2.querySelector(".back-face").classList.toggle("girar-back-face");
-                carta2.querySelector(".front-face").classList.toggle("girar-front-face");
+                carta1.querySelector('.back-face').classList.toggle("girar-back-face");
+                carta1.querySelector('.front-face').classList.toggle("girar-front-face");
+                carta2.querySelector('.back-face').classList.toggle("girar-back-face");
+                carta2.querySelector('.front-face').classList.toggle("girar - front - face");
                 timeout = true;
             }, 1000);
 
