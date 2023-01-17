@@ -1,9 +1,3 @@
-let q = 3;
-while ((q < 4) || (q > 14) || (q % 2 != 0)) {
-    let quantidade = prompt("Com quantas cartas você quer jogar?");
-    q = Number(quantidade);
-}
-
 const Cartas = [];
 Cartas.push('bobrossparrot.gif');
 Cartas.push('bobrossparrot.gif');
@@ -21,16 +15,27 @@ Cartas.push('unicornparrot.gif');
 Cartas.push('unicornparrot.gif');
 
 
-function comparador() {
-    return Math.random - 0.5;
+
+
+let q = 3;
+while ((q < 4) || (q > 14) || (q % 2 != 0)) {
+    let quantidade = prompt("Com quantas cartas você quer jogar?");
+    q = Number(quantidade);
 }
+
+
+
+function comparador() {
+    return Math.random() - 0.5;
+}
+
 let i = 0;
 const NumerodeCartas = [];
 while (i < q) {
     NumerodeCartas[i] = Cartas[i];
-    NumerodeCartas.sort(comparador);
     i++;
 }
+NumerodeCartas.sort(comparador);
 
 let j = 0;
 while (j < q) {
@@ -38,84 +43,76 @@ while (j < q) {
     elemento.innerHTML += `
     <div data-test="card" onclick = "rotacionar(this)" class="carta">
         <div class="front-face face">
-            <img data-test="face-down-image" class="back" src="imagens/back.png" alt="back">
+            <img data-test="face-down-image" class="back" src="imagens/back.png">
         </div>
         <div class="back-face face">
-            <img data-test="face-up-image" class="front" src="imagens/${NumerodeCartas[j]}" alt="bobrossparrot">
+            <img data-test="face-up-image" class="front" src="imagens/${NumerodeCartas[j]}">
         </div>`
     j++;
 
 }
 
-let carta1;
-let imagem1;
-let carta2;
-let imagem2;
-let possui1;
-let possui2;
-let jogadas = 0;
+let cartaum;
+let cartadois;
+let nomeimgum;
+let nomeimgdois;
 let timeout = true;
-
-function rotacionar(card) {
+let jogadas = 0;
+function rotacionar(carta) {
     const cartasViradas = [];
-    const cartacerta = card.classList.contains('correto');
-    const rotacionado = card.classList.contains('virado');
-    if (cartacerta == false && rotacionado == false && timeout == true) {
-        card.classList.add('virado');
-        card.querySelector(".back-face").classList.toggle("girar-back-face");
-        card.querySelector(".front-face").classList.toggle("girar-front-face");
-        const seletor = document.querySelectorAll(".virado");
-        let h = 0;
-
-        while (h < seletor.lenght) {
-            cartasViradas[h] = seletor[h];
-            h++;
+    jogadas++;
+    const cartacorreta = carta.classList.contains('correto');
+    const temvirado = carta.classList.contains('virado');
+    if (cartacorreta == false && timeout == true && temvirado == false) {
+        carta.classList.add('virado');
+        carta.querySelector(".back-face").classList.toggle("girar-back-face");
+        carta.querySelector(".front-face").classList.toggle("girar-front-face");
+        const selectorall = document.querySelectorAll('.virado');
+        let cont3 = 0;
+        while (cont3 < selectorall.length) {
+            cartasViradas[cont3] = selectorall[cont3];
+            cont3++;
         }
-
         if (cartasViradas.length == 1) {
-            carta1 = card;
-            imagem1 = carta1.querySelector('.back-face img').src;
+            cartaum = carta;
+            nomeimgum = cartaum.querySelector('.back-face img').src;
         }
-
         else if (cartasViradas.length == 2) {
-            carta2 = card;
-            imagem2 = carta2.querySelector('.back-face img').src
+            cartadois = carta;
+            nomeimgdois = cartadois.querySelector('.back-face img').src;
         }
-
-        if (cartasViradas.length == 2 && imagem1 != imagem2) {
+        const contemum = cartaum.classList.contains('virado');
+        const contemdois = cartadois.classList.contains('virado');
+        if (cartasViradas.length == 2 && nomeimgum !== nomeimgdois) {
             cartasViradas.length = 0;
-            carta1.classList.remove('virado');
-            carta2.classList.remove('virado');
+            cartaum.classList.remove('virado');
+            cartadois.classList.remove('virado');
             timeout = false;
             setTimeout(() => {
-                carta1.querySelector('.back-face').classList.toggle("girar-back-face");
-                carta1.querySelector('.front-face').classList.toggle("girar-front-face");
-                carta2.querySelector('.back-face').classList.toggle("girar-back-face");
-                carta2.querySelector('.front-face').classList.toggle("girar - front - face");
+                cartaum.querySelector(".back-face").classList.toggle("girar-back-face");
+                cartaum.querySelector(".front-face").classList.toggle("girar-front-face");
+                cartadois.querySelector(".back-face").classList.toggle("girar-back-face");
+                cartadois.querySelector(".front-face").classList.toggle("girar-front-face");
                 timeout = true;
             }, 1000);
-
         }
-
-        else if (cartasViradas.length == 2 && imagem1 == imagem2) {
+        else if (cartasViradas.length == 2) {
             cartasViradas.length = 0;
-            carta1.classList.remove('virado');
-            carta2.classList.remove('virado');
-            carta1.classList.add('correto');
-            carta2.classList.add('correto');
-
+            cartaum.classList.add('correto');
+            cartadois.classList.add('correto');
+            cartaum.classList.remove('virado');
+            cartadois.classList.remove('virado');
         }
-
         (document.querySelectorAll('.correto'));
         console.log(timeout);
     }
-    jogadas++;
+    const fimdejogo = document.querySelectorAll('.correto');
+    if (fimdejogo.length == q) {
+        alert(`Você ganhou em ${jogadas} jogadas!`)
 
-    const finaldejogo = document.querySelectorAll('.correto');
-    if (finaldejogo.length == q) {
-        alert(`Você ganhou em ${jogadas} jogadas!`);
     }
 }
+
 
 
 
